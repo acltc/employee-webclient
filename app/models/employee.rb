@@ -10,4 +10,8 @@ class Employee
     @birthdate = hash["birthdate"]
     @manager = hash["manager"]
   end
+
+  def full_name
+    "#{@first_name} #{@last_name}"
+  end
 end

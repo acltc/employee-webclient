@@ -1,6 +1,6 @@
 <h1>Employees</h1>
 
-<% @employees.each do |employee_hash| %>
-  <h2><%= employee_hash.first_name %> <%= employee_hash.last_name %></h2>
-  <h3>Email: <%= employee_hash.email %></h3>
+<% @employees.each do |employee| %>
+  <h2><%= employee.full_name %></h2>
+  <h3>Email: <%= employee.email %></h3>
 <% end %>
