@@ -1,6 +1,10 @@
 class EmployeesController < ApplicationController
   def index
-    @employees = Unirest.get("http://localhost:3000/employees.json").body
+    @employees = []
+    api_employees = Unirest.get("http://localhost:3000/employees.json").body
+    api_employees.each do |api_employee|
+      @employees << Employee.new(api_employee)
+    end
   end
 
   def show
