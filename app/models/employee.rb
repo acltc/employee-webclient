@@ -14,4 +14,8 @@ class Employee
   def full_name
     "#{@first_name} #{@last_name}"
   end
+
+  def self.find(id)
+    new(Unirest.get("http://localhost:3000/employees/#{id}.json").body)
+  end
 end
