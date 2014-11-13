@@ -18,4 +18,13 @@ class Employee
   def self.find(id)
     new(Unirest.get("http://localhost:3000/employees/#{id}.json").body)
   end
+
+  def self.all
+    employees = []
+    api_employees = Unirest.get("http://localhost:3000/employees.json").body
+    api_employees.each do |api_employee|
+      employees << Employee.new(api_employee)
+    end
+    employees
+  end
 end
