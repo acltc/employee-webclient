@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
   def index
-    @employees = Unirest.get("http://localhost:3000/employees.json").body
+    @employees = Employee.all
   end
 
   def show
-    @employee = Unirest.get("http://localhost:3000/employees/#{params[:id]}.json").body
+    @employee = Employee.find(params[:id])
   end
 
 
