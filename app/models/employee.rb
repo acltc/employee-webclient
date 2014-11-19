@@ -1,6 +1,6 @@
 class Employee
 
-  attr_accessor :first_name, :last_name, :email, :phone_numbers, :addresses, :ssn
+  attr_accessor :first_name, :last_name, :email, :phone_numbers, :addresses, :ssn, :id
 
   def initialize(hash)
     @first_name = hash["first_name"]
@@ -9,6 +9,7 @@ class Employee
     @phone_numbers = hash["phone_numbers"]
     @addresses = hash["addresses"]
     @ssn = hash["ssn"]
+    @id = hash["id"]
   end
 
   def full_name
@@ -16,16 +17,20 @@ class Employee
   end
 
   def self.find(id)
-    Employee.new(Unirest.get("http://localhost:3000/employees/#{id}.json").body)
+    Employee.new(Unirest.get("#{ENV["EMPLOYEE_API_ROOT"]}/employees/#{id}.json").body)
   end
 
   def self.all
     employees = []
-    raw_employees_data = Unirest.get("http://localhost:3000/employees.json").body
+    raw_employees_data = Unirest.get("#{ENV["EMPLOYEE_API_ROOT"]}/employees.json").body
     raw_employees_data.each do |employee_hash|
       employees << Employee.new(employee_hash)
     end
     employees
+  end
+
+  def destroy
+    Unirest.delete("#{ENV["EMPLOYEE_API_ROOT"]}/employees/#{@id}.json", headers: {"Accept" => "application/json"})
   end
 
 end
